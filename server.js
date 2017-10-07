@@ -5,6 +5,8 @@ var app = express();
 
 // Indicando que se utilizara un motor de vistas "pug"
 app.set('view engine', 'pug');
+// Indicarle al servidor web que se sirva de este directorio de forma estatica
+app.use(express.static('public'));
 // Cuando corre el script server.js se ejecutara lo siguiente
 app.get('/', function(req, res) {
     // res.send('Hola el servidor web esta corriendo')
