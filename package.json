@@ -1,0 +1,15 @@
+{
+  "name": "servidor-web",
+  "version": "0.1.0",
+  "description": "Comparte tus fotos con la comunidad",
+  "main": "server.js",
+  "keywords": [
+    "platzi",
+    "javascript"
+  ],
+  "author": "mario",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
