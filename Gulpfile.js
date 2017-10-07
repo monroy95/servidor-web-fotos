@@ -4,6 +4,7 @@ var rename = require('gulp-rename');
 var babel = require('babelify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var watchify = require('watchify');
 // Permite que por medio de otro pipe podamos renombrar el archivo .css que genere
 // Define una nueva tarea de estilos
 gulp.task('styles', function() {
@@ -22,13 +23,35 @@ gulp.task('assets', function() {
         .pipe(gulp.dest('public'));
 })
 
-// Tarea: que procese index.js
-gulp.task('scripts', function() {
-    browserify('./src/index.js')
-        .transform(babel)
-        .bundle()
-        .pipe(source('index.js')) // Transforma lo que devuelve bundle 
-        .pipe(rename('app.js'))
-        .pipe(gulp.dest('public'));
-})
-gulp.task('default', ['styles', 'assets', 'scripts']) // El arrar puede ejecutar varias tareas en paralelo
+function compile(watch) {
+    var bundle = watchify(browserify('./src/index.js'));
+
+    function rebundle() {
+        bundle
+            .transform(babel)
+            .bundle()
+            .on('error', function(err) { console.log(err);
+                this.emit('end') })
+            .pipe(source('index.js')) // Transforma lo que devuelve bundle 
+            .pipe(rename('app.js'))
+            .pipe(gulp.dest('public'));
+    }
+    if (watch) {
+        bundle.on('update', function() {
+            console.log('--> Compilando...');
+            rebundle();
+        })
+    }
+    rebundle();
+}
+
+// Tarea compilacion
+gulp.task('build', function() {
+    return compile();
+});
+
+gulp.task('watch', function() {
+    return compile(true);
+});
+
+gulp.task('default', ['styles', 'assets', 'build']) // El arrar puede ejecutar varias tareas en paralelo

@@ -9,8 +9,17 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 // Cuando corre el script server.js se ejecutara lo siguiente
 app.get('/', function(req, res) {
+    res.render('index', { title: 'Platzigram' });
+})
+
+app.get('/signup', function(req, res) {
     // res.send('Hola el servidor web esta corriendo')
-    res.render('index');
+    res.render('index', { title: 'Platzigram - Signup' });
+})
+
+app.get('/signin', function(req, res) {
+    // res.send('Hola el servidor web esta corriendo')
+    res.render('index', { title: 'Platzigram - Signin' });
 })
 
 // El servidor web esuchara por medio del puerto 3000 y tiene como parametro un error
