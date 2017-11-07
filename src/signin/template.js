@@ -9,7 +9,7 @@ var signinForm = yo `<div class="col s12 m7">
         
             <div class="section">
                 <a class="btn btn-fb hide-on-small-only">Iniciar Sesion con Facebook</a>
-                <a class="btn btn-fb hide-on-med-and-up">Iniciar Sesion</a>
+                <a class="btn btn-fb hide-on-med-and-up"><i class="fa fa-facebook-official"></i> Iniciar Sesion</a>
                 <div class="divider">
 
                 </div>
@@ -27,6 +27,6 @@ var signinForm = yo `<div class="col s12 m7">
         ¿No Tienes Una Cuenta? <a href="/signup">Registrar</a>
     </div>
 </div>
-</div`;
+</div>`;
 
 module.exports = landing(signinForm);
